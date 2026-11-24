@@ -28,6 +28,9 @@ def main() -> int:
     if text.count(".") != 1 or not text.endswith("."):
         print("entry must be exactly one sentence", file=sys.stderr)
         return 1
+    if any(ch in text for ch in "\r\n"):
+        print("entry must be a single line", file=sys.stderr)
+        return 1
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
